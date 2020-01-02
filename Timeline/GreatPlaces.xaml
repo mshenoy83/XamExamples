@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Timeline.GreatPlaces"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:timeline="clr-namespace:Timeline;assembly=Timeline"
+    mc:Ignorable="d">
+    <d:ContentPage.BindingContext>
+        <x:Array Type="{x:Type timeline:GreatPlace}">
+            <timeline:GreatPlace
+                Title="Fiji Getaway"
+                Handle="@beachcomber"
+                HeroImage="Fiji.jpg"
+                ProfileImage="Person_1.jpg"
+                ViewCount="2654" />
+            <timeline:GreatPlace
+                Title="A Hipster day out"
+                Handle="@handlebar"
+                HeroImage="Hipster.jpg"
+                ProfileImage="Person_4.jpg"
+                ViewCount="124" />
+            <timeline:GreatPlace
+                Title="Mediteranian Bliss"
+                Handle="@greekdude"
+                HeroImage="greekisland.jpg"
+                ProfileImage="Person_5.jpg"
+                ViewCount="562" />
+            <timeline:GreatPlace
+                Title="Down the slopes"
+                Handle="@skibunny"
+                HeroImage="snow.jpg"
+                ProfileImage="Person_2.jpg"
+                ViewCount="132" />
+            <timeline:GreatPlace
+                Title="Wide open road"
+                Handle="@vroom"
+                HeroImage="combi.jpg"
+                ProfileImage="Person_3.jpg"
+                ViewCount="3221" />
+        </x:Array>
+    </d:ContentPage.BindingContext>
+    <Grid>
+        <Image
+            Aspect="Fill"
+            HorizontalOptions="Fill"
+            Source="ColoredBackground"
+            VerticalOptions="Fill" />
+        <CollectionView
+            x:Name="placeList"
+            BackgroundColor="Transparent"
+            ItemSizingStrategy="MeasureAllItems"
+            ItemsSource="{Binding .}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        Margin="10,5"
+                        ColumnSpacing="0"
+                        RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="AUTO" />
+                        </Grid.RowDefinitions>
+
+                        <Image
+                            Grid.RowSpan="2"
+                            Aspect="AspectFill"
+                            Source="{Binding HeroImage}" />
+                        <Image
+                            Grid.RowSpan="2"
+                            Aspect="Fill"
+                            HorizontalOptions="Fill"
+                            Source="ShadowOverlay"
+                            VerticalOptions="End" />
+
+                        <Grid
+                            Grid.Row="1"
+                            Margin="10"
+                            ColumnSpacing="10"
+                            RowSpacing="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="25" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.ColumnSpan="3"
+                                LineBreakMode="NoWrap"
+                                Style="{StaticResource TitleLabel}"
+                                Text="{Binding Title}" />
+                            <Abstractions:CircleImage
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Aspect="AspectFill"
+                                HeightRequest="25"
+                                Source="{Binding ProfileImage}"
+                                WidthRequest="25" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource HandleLabel}"
+                                Text="{Binding Handle}"
+                                VerticalOptions="Center" />
+
+                            <StackLayout
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Orientation="Horizontal"
+                                Spacing="5"
+                                VerticalOptions="Center">
+                                <Image Source="Eye" />
+                                <Label Style="{StaticResource HandleLabel}" Text="{Binding ViewCount, StringFormat='{0:N0}'}" />
+                                <Label Style="{StaticResource BodyLabel}" Text="views" />
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
